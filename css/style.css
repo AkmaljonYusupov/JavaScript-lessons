@@ -2,4 +2,6 @@ h1 {
   font-size: 36px;
   font-weight: 600;
   font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  position: sticky;
 }
