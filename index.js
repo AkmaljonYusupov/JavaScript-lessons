@@ -1,35 +1,28 @@
 "use strict";
+const user = "Akmaljon";
+const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-// function Declaration
+// console.log(user.length);
+// console.log(arr.length);
+// console.log(user[2]);
+// console.log(arr[2]);
 
-function calc(a, b) {
-  return a + b;
-}
-console.log(calc(10, 5));
-const sumOfAandB = calc(40, 5);
-console.log(sumOfAandB);
+console.log(user.toUpperCase()); // berilgan string o`zgaruvchini xamma xarflarini katta xarfda chiqaradi
+console.log(user.toLowerCase()); // berilgan sring o`zgaruvchini xamma xarflarini kichik xarfda chiqaradi
 
-let age = 24;
-function seyMyName(name, surname) {
-  let age = 21;
-  console.log(`My name is ${name} ${surname}`);
-  console.log(age);
-}
-seyMyName("Akmaljon", "Yusupov");
-console.log(age);
+const greeting = "Hello World";
 
-// function Expression
-const logger = function () {
-  console.log("Hello World");
-};
-logger();
+console.log(greeting.toLowerCase().indexOf("a")); // berilgan string o`zgaruvchidan indexof() da so`ralgan ma`lumotni qidiradi
 
-// function Arrow
-const calcs = (a, b) => a + b;
-console.log(calcs(20, 1));
+console.log(greeting.slice(6, greeting.length)); // Berilgan string o`zgaruvchidan oraliq bo`yicha so`zlarni qirqib oladi
+// console.log(greeting.slice(6));
+// console.log(greeting.slice(-6, 0));
 
-const text = (a) => {
-  console.log("!");
-  return a;
-};
-console.log(text(5));
+// console.log(greeting.substring(6, 11));
+// console.log(greeting.substr(6, 5));
+
+const numbers = 8.8;
+const borderWidh = "13.9px";
+console.log(parseInt(borderWidh)); // berilgan o`zgaruvchidan sonni faqat butun qismini chiqarib beradi
+console.log(parseFloat(borderWidh)); // berilgan o`zgaruvchidan sonni xammasini chiqarib beradi butun son bo`lsa butun sonni yokida o`nli kasr bo`lsa shu qiymatni chiqaradi
+console.log(Math.round(numbers)); // yaxlitlaydi
