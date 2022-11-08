@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 30px;
+  outline: none;
+  width: 300px;
+  background-color: aquamarine;
+  border: none;
+  cursor: pointer;
+  border-radius: 0 10px 0 10px;
+  transition: all 0.3s ease;
+  -webkit-border-radius: 0 10px 0 10px;
+  -moz-border-radius: 0 10px 0 10px;
+  -ms-border-radius: 0 10px 0 10px;
+  -o-border-radius: 0 10px 0 10px;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+}
+button:hover {
+  border-radius: 10px 0 10px 0;
+  border-bottom: 7px solid blueviolet;
+  -webkit-border-radius: 10px 0 10px 0;
+  -moz-border-radius: 10px 0 10px 0;
+  -ms-border-radius: 10px 0 10px 0;
+  -o-border-radius: 10px 0 10px 0;
+}
+.overlay {
+  width: 100%;
+  padding: 30px;
+  background-color: burlywood;
+}
