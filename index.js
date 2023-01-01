@@ -26,7 +26,7 @@ const gm = {
 // console.log(gm);
 // gm.isSpeed();
 
-Object.setPrototypeOf(gm, car);
+Object.setPrototypeOf(gm, car); // yuklab beradi
 console.log(gm);
 
-const bmw = Object.create(car);
+const bmw = Object.create(car); // yaratib beradi
