@@ -1,9 +1,13 @@
 "use strict";
-//  OOP asoslari, prototipga yo'naltirilgan meros
-// const firstName = "Akmaljon";
-// const str = new String(firstName);
-// console.log(typeof firstName);
+
+// 1 - code;
+// const firstname = "Akmaljon";
+// const str = new String(firstname);
+
+// console.log(typeof firstname);
 // console.log(typeof str);
+
+// 2-code
 
 const car = {
   motor: "X",
@@ -17,12 +21,12 @@ const car = {
 const gm = {
   isAirbag: false,
 };
+
 // gm.__proto__ = car;
 // console.log(gm);
 // gm.isSpeed();
 
-Object.setPrototypeOf(gm, car); // yuklab beradi
+Object.setPrototypeOf(gm, car);
 console.log(gm);
 
-const bmw = Object.create(car); // yaratib beradi
-console.log(gm);
+const bmw = Object.create(car);
