@@ -1,37 +1,74 @@
-window.addEventListener("DOMContentLoaded", () => {
-  const tabsParent = document.querySelector(".tabheader__items"),
-    tabs = document.querySelectorAll(".tabheader__item"),
-    tabsContent = document.querySelectorAll(".tabcontent");
+"use strict";
 
-  // function code
-  function hideTabContent() {
-    tabsContent.forEach((item) => {
-      item.classList.add("hide");
-      item.classList.remove("show", "fade");
-    });
-    tabs.forEach((item) => {
-      item.classList.remove("tabheader__item_active");
-    });
-  }
-  function showTabContent(i = 0) {
-    tabsContent[i].classList.add("show", "fade");
-    tabsContent[i].classList.remove("hide");
-    tabs[i].classList.add("tabheader__item_active");
-  }
-  hideTabContent();
-  showTabContent();
+const btn = document.querySelector("#btn");
 
-  tabsParent.addEventListener("click", (e) => {
-    const target = e.target;
-    if (target && target.classList.contains("tabheader__item")) {
-      tabs.forEach((item, idx) => {
-        if (target == item) {
-          console.log(item);
-          console.log(idx);
-          hideTabContent();
-          showTabContent(idx);
-        }
-      });
+// let timerId;
+// let i = 0;
+// Amaliyot code
+function myAnimation() {
+  const car = document.querySelector(".car");
+  let pos = 0;
+
+  const timerId = setInterval(frame, 10);
+
+  function frame() {
+    if (pos === 700) {
+      clearInterval(timerId);
+    } else {
+      pos++;
+      car.style.left = pos + "px";
     }
-  });
-});
+  }
+}
+
+btn.addEventListener("click", myAnimation);
+
+// btn.addEventListener("click", () => {
+// setTimeout bosganda 1000 shu ya`ni 1s dan keyin ishga tushadi
+//   const timerId = setTimeout(logger, 1000);
+//   timerId = setInterval(logger, 500);
+// });
+
+// function logger() {
+//   if (i === 3) {
+//     clearInterval(timerId);
+//   }
+//   i++;
+//   console.log("hellooooo");
+// }
+
+// let id = setTimeout(function log() {
+//   console.log("Hello World");
+//   id = setTimeout(log, 500);
+// }, 500);
+
+// vaqt oralig`ida ishga tushuvchi funksiyalar xaqida
+
+// setTimeout(() => {
+//   console.log("setTimeout");
+// }, 8000);
+
+// shu tarzda ishlatsak xam bo`ladi lekin noqulay bo`ladi
+// setTimeout(
+//   (text) => {
+//     console.log(text);
+//   },
+//   8000,
+//   "Hello"
+// );
+
+// callback function yordamida ishlatish
+
+// setTimeout(logger, 5000);
+
+// function logger() {
+//   console.log("hellooo");
+// }
+
+// O`zgaruvchiga biriktirgan xolda ishlatish
+// const timerId = setTimeout(logger, 5000);
+// intervalni tozalab tshlash
+// clearInterval(timerId);
+// function logger() {
+//   console.log("hellooo");
+// }
