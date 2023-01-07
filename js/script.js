@@ -1,46 +1,37 @@
-"use strict";
+window.addEventListener("DOMContentLoaded", () => {
+  const tabsParent = document.querySelector(".tabheader__items"),
+    tabs = document.querySelectorAll(".tabheader__item"),
+    tabsContent = document.querySelectorAll(".tabcontent");
 
-const wrapper = document.querySelector(".btn-block"),
-  btns = document.querySelectorAll("button");
-// consolda Click ni chiqarib beradi ixtiyoriy elementga bosganda
-// wrapper.addEventListener("click", () => {
-//   console.log("Click");
-// });
-
-// ona elementi orqali button tugmaga element qo`shish
-// wrapper.addEventListener("click", (e) => {
-//     // button tugmani bosilganda
-//   if (e.target && e.target.tagName == "BUTTON") {
-//     console.log("Click me");
-//   }
-// });
-
-btns[0].addEventListener("click", () => {
-  btns[1].classList.toggle("red");
-});
-
-/* Deligatsiya */
-// 1-)
-// wrapper.addEventListener("click", (e) => {
-//   if (e.target && e.target.classList.contains("red")) {
-//     console.log("Click me");
-//   }
-// });
-// 1.1-)
-
-wrapper.addEventListener("click", (e) => {
-  if (e.target && e.target.matches("button.red")) {
-    console.log("Click me");
+  // function code
+  function hideTabContent() {
+    tabsContent.forEach((item) => {
+      item.classList.add("hide");
+      item.classList.remove("show", "fade");
+    });
+    tabs.forEach((item) => {
+      item.classList.remove("tabheader__item_active");
+    });
   }
+  function showTabContent(i = 0) {
+    tabsContent[i].classList.add("show", "fade");
+    tabsContent[i].classList.remove("hide");
+    tabs[i].classList.add("tabheader__item_active");
+  }
+  hideTabContent();
+  showTabContent();
+
+  tabsParent.addEventListener("click", (e) => {
+    const target = e.target;
+    if (target && target.classList.contains("tabheader__item")) {
+      tabs.forEach((item, idx) => {
+        if (target == item) {
+          console.log(item);
+          console.log(idx);
+          hideTabContent();
+          showTabContent(idx);
+        }
+      });
+    }
+  });
 });
-
-// btns.forEach((item) => {
-//   item.addEventListener("click", () => {
-//     console.log("Clicked");
-//   });
-// });
-
-// dinamik tarzda button qo`shish
-const btn = document.createElement("button");
-btn.classList.add("red");
-wrapper.append(btn);
