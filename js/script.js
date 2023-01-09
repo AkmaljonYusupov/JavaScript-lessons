@@ -47,11 +47,20 @@ window.addEventListener("DOMContentLoaded", () => {
   // console.log(Date.parse("2023-02-09"));
 
   function getTimeRemaining(endtime) {
-    const timer = Date.parse(endtime) - Date.parse(new Date()),
-      days = Math.floor(timer / (1000 * 60 * 60 * 24)), // kun
-      hours = Math.floor((timer / (1000 * 60 * 60)) % 24), // soat
-      minutes = Math.floor((timer / 1000 / 60) % 60), // minut
+    let days, hours, minutes, seconds;
+
+    const timer = Date.parse(endtime) - Date.parse(new Date());
+    if (timer <= 0) {
+      days = 0;
+      hours = 0;
+      minutes = 0;
+      seconds = 0;
+    } else {
+      days = Math.floor(timer / (1000 * 60 * 60 * 24)); // kun
+      hours = Math.floor((timer / (1000 * 60 * 60)) % 24); // soat
+      minutes = Math.floor((timer / 1000 / 60) % 60); // minut
       seconds = Math.floor((timer / 1000) % 60); // second
+    }
 
     return { timer, days, hours, minutes, seconds };
   }
