@@ -1,30 +1,124 @@
-"use strict";
+window.addEventListener("DOMContentLoaded", () => {
+  const tabsParent = document.querySelector(".tabheader__items"),
+    tabs = document.querySelectorAll(".tabheader__item"),
+    tabsContent = document.querySelectorAll(".tabcontent"),
+    loader = document.querySelector(".loader");
 
-const box = document.querySelector(".box");
-const buttons = document.querySelector("button");
+  // loader
+  setTimeout(() => {
+    loader.style.opacity = "0";
+    setTimeout(() => {
+      loader.style.display = "none";
+    }, 500);
+  }, 2000);
 
-// box ichki o`lchami
-// const width = box.clientWidth;
-// const height = box.clientHeight;
-// console.log(width);
-// console.log(height);
+  // function
+  function hideTabContent() {
+    tabsContent.forEach((item) => {
+      item.classList.add("hide");
+      item.classList.remove("show", "fade");
+    });
+    tabs.forEach((item) => {
+      item.classList.remove("tabheader__item_active");
+    });
+  }
 
-// const width = box.offsetWidth;
-// const height = box.offsetHeight;
+  function showTabContent(i = 0) {
+    tabsContent[i].classList.add("show", "fade");
+    tabsContent[i].classList.remove("hide");
+    tabs[i].classList.add("tabheader__item_active");
+  }
+  hideTabContent();
+  showTabContent();
+  tabsParent.addEventListener("click", (e) => {
+    const target = e.target;
+    if (target && target.classList.contains("tabheader__item")) {
+      tabs.forEach((item, idx) => {
+        if (target == item) {
+          hideTabContent();
+          showTabContent(idx);
+        }
+      });
+    }
+  });
 
-// console.log(width);
-// console.log(height);
+  // Time
+  const deadLine = "2023-02-09";
+  //   console.log(Date.parse("2023-02-09"));
+  function getTimeRemaining(endtime) {
+    const timer = Date.parse(endtime) - Date.parse(new Date()),
+      days = Math.floor(timer / (1000 * 60 * 60 * 24)), // kun
+      hours = Math.floor((timer / (1000 * 60 * 60)) % 24), // soat
+      minutes = Math.floor((timer / 1000 / 60) % 60), // minut
+      seconds = Math.floor((timer / 1000) % 60); // second
+    return { timer, days, hours, minutes, seconds };
+  }
+  function getZero(num) {
+    if (num >= 0 && num < 10) {
+      return `0${num}`;
+    } else {
+      return num;
+    }
+  }
+  getZero();
+  function setClock(selector, endtime) {
+    const timer = document.querySelector(selector),
+      days = timer.querySelector("#days"),
+      hours = timer.querySelector("#hours"),
+      minutes = timer.querySelector("#minutes"),
+      seconds = timer.querySelector("#seconds"),
+      timeInterval = setInterval(updatClock, 1000);
 
-// const height = box.scrollHeight;
+    updatClock();
+    function updatClock() {
+      const t = getTimeRemaining(endtime);
 
-// console.log(height);
+      (days.innerHTML = getZero(t.days)),
+        (hours.innerHTML = getZero(t.hours)),
+        (minutes.innerHTML = getZero(t.minutes)),
+        (seconds.innerHTML = getZero(t.seconds));
+      if (t.timer <= 0) {
+        clearInterval(timeInterval);
+      }
+    }
+  }
+  setClock(".timer", deadLine);
 
-// buttons.addEventListener("click", () => {
-//   box.style.height = box.scrollHeight + "px";
-//   console.log(box.scrollTop);
-// });
+  //   Modal
 
-// const style = window.getComputedStyle(box);
-// console.log(style.display);
+  const modalTrigger = document.querySelector(`[data-modal]`),
+    modal = document.querySelector(".modal"),
+    modalCloseBtn = document.querySelector(`[data-close]`);
 
-console.log(document.documentElement.clientWidth);
+  function closeModal() {
+    modal.classList.add("hide");
+    modal.classList.remove("show");
+    document.body.style.overflow = "";
+  }
+
+  function openModal() {
+    modal.classList.add("show");
+    modal.classList.remove("hide");
+    document.body.style.overflow = "hidden";
+    clearInterval(modalTimerId);
+  }
+
+  modalTrigger.addEventListener("click", openModal);
+
+  modalCloseBtn.addEventListener("click", closeModal);
+  modal.addEventListener("click", (e) => {
+    if (e.target == modal) {
+      closeModal();
+    }
+  });
+
+  //   https://www.toptal.com/developers/keycode
+
+  document.addEventListener("keydown", (e) => {
+    if (e.code === "Escape" && modal.classList.contains("show")) {
+      closeModal();
+    }
+  });
+
+  const modalTimerId = setTimeout(openModal, 3000);
+});
