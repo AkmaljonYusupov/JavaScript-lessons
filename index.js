@@ -1,27 +1,52 @@
 "use strict";
+// content this = xar doim nimagadir qaram(osiladi)
 
-// const number = new Function();
+// ***************** ------------------------ ************************
 
-// console.dir(number);
+// 1-) Oddiy function contexti ya`ni this xar doim window global objectga qaram bo`ladi
+//  yani osiladi. Agarda qatiy rejim yoqu bo`lsa (use strict) context undefinedga teng
 
-function Car(name, color, mph) {
+// function logger(a, b) {
+//   console.log(this);
+//   function sum() {
+//     console.log(this);
+//     /* return this.a + this.b;*/
+//     return a + b;
+//   }
+//   console.log(sum());
+// }
+// logger(5, 10);
+
+// ***************** ------------------------ ************************
+// 2-) Context this objectni ichidagi metodda -- objectni o`ziga teng
+// const obj = {
+//   x: 10,
+//   y: 14,
+//   sum: function () {
+/*    function logger() {
+       console.log(this);
+     }
+     logger();*/
+// console.log(this);
+//   },
+// };
+// obj.sum();
+
+// ***************** ------------------------ ************************
+// 3-) Context this functiya konstruktorda yangi objectni ekzempyariga teng
+function Car(name, color) {
   this.name = name;
   this.color = color;
-  this.mph = mph;
   this.isAirbag = true;
-  this.speed = function () {
-    console.log(`Speed of car ${this.name} is ${this.mph}`);
-  };
 }
-Car.prototype.sayHello = function () {
-  console.log(`Car name of ${this.name} say hello`);
-};
-const bmw = new Car("bmw", "red", 64);
-const merc = new Car("merc", "black", 90);
-bmw.speed();
-merc.speed();
-bmw.sayHello();
-merc.sayHello();
-// console.log(Car.prototype.constructor.length);
+const bmw = new Car("BMW", "Black");
 console.log(bmw);
-console.log(merc);
+
+// ***************** ------------------------ ************************
+// Closure => berilgan o`zgaruvchini function ichidan qidiradi agar function ichida bo`lmasa function tashqarisidan qidiradi
+// const a = 25;
+// function log() {
+//   const a = 24;
+//   console.log(a);
+// }
+// log();
