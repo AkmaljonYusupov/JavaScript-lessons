@@ -154,12 +154,13 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // class
   class MenuCard {
-    constructor(src, alt, title, descr, price, parentSelector) {
+    constructor(src, alt, title, descr, price, parentSelector, ...classes) {
       this.src = src;
       this.alt = alt;
       this.title = title;
       this.descr = descr;
       this.price = price;
+      this.classes = classes;
       this.parent = document.querySelector(parentSelector);
       this.transfer = 11350;
       this.chageToUZS();
@@ -169,8 +170,14 @@ window.addEventListener("DOMContentLoaded", () => {
     }
     render() {
       const element = document.createElement("div");
+
+      if (this.classes.length == 0) {
+        this.element = "menu__item";
+        element.classList.add(this.element);
+      } else {
+        this.classes.forEach((classname) => element.classList.add(classname));
+      }
       element.innerHTML = `
-      <div class="menu__item">
       <img src=${this.src} alt=${this.alt} />
       <h3 class="menu__item-subtitle">${this.title}</h3>
       <div class="menu__item-descr">
@@ -181,7 +188,6 @@ window.addEventListener("DOMContentLoaded", () => {
         <div class="menu__item-cost">Price:</div>
         <div class="mrnu__item-total"><span>${this.price}</span>uzs/month</div>
       </div>
-    </div>
       `;
 
       this.parent.append(element);
@@ -222,4 +228,17 @@ window.addEventListener("DOMContentLoaded", () => {
     30,
     ".menu .container"
   ).render();
+
+  // Rest oprater
+
+  // function logger(a, b, ...rest) {
+  //   console.log(a, b, rest);
+  // }
+
+  // logger(1, 2, 3, 4, 5, 6, 7, 8, 9);
+
+  // function calc(number, def) {
+  //   console.log(number + def);
+  // }
+  // calc(1, 2);
 });
