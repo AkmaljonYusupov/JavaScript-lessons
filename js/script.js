@@ -47,7 +47,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // Timer
 
-  const deadline = "2023-02-09";
+  const deadline = "2023-05-28";
 
   function getTimeRemaining(endtime) {
     let days, hours, minutes, seconds;
@@ -138,7 +138,7 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // const modalTimerId = setTimeout(openModal, 5000);
+  const modalTimerId = setTimeout(openModal, 50000);
 
   function showModalByScroll() {
     if (
@@ -241,4 +241,56 @@ window.addEventListener("DOMContentLoaded", () => {
   //   console.log(number + def);
   // }
   // calc(1, 2);
+
+  // Form
+
+  const forms = document.querySelectorAll("form");
+
+  forms.forEach((form) => {
+    postData(form);
+  });
+
+  const msg = {
+    loading: "Loading...",
+    success: "Thank's for submitting our form ",
+    failure: "Something went wrong",
+  };
+
+  console.log("hello");
+
+  function postData(form) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const statusMessage = document.createElement("div");
+      statusMessage.textContent = msg.loading;
+      form.append(statusMessage);
+
+      const request = new XMLHttpRequest();
+      request.open("POST", "../server.php");
+
+      request.setRequestHeader("Content-Type", "application/json");
+      const obj = {};
+      const formData = new FormData(form);
+      formData.forEach((val, key) => {
+        obj[key] = val;
+      });
+
+      const json = JSON.stringify(obj);
+      request.send(json);
+      // request.send(formData);
+      request.addEventListener("load", () => {
+        if (request.status == 200) {
+          console.log(request.response);
+          statusMessage.textContent = msg.success;
+          form.reset();
+          setTimeout(() => {
+            statusMessage.remove();
+          }, 2000);
+        } else {
+          statusMessage.textContent = msg.failure;
+        }
+      });
+    });
+  }
 });
