@@ -104,8 +104,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // Modal
   const modalTrigger = document.querySelectorAll("[data-modal]"),
-    modal = document.querySelector(".modal"),
-    modalCloseBtn = document.querySelector("[data-close]");
+    modal = document.querySelector(".modal");
 
   function closeModal() {
     modal.classList.add("hide");
@@ -124,10 +123,8 @@ window.addEventListener("DOMContentLoaded", () => {
     item.addEventListener("click", openModal);
   });
 
-  modalCloseBtn.addEventListener("click", closeModal);
-
   modal.addEventListener("click", (e) => {
-    if (e.target == modal) {
+    if (e.target == modal || e.target.getAttribute("data-close") == "") {
       closeModal();
     }
   });
@@ -152,7 +149,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   window.addEventListener("scroll", showModalByScroll);
 
-  // class
+  // Class
   class MenuCard {
     constructor(src, alt, title, descr, price, parentSelector, ...classes) {
       this.src = src;
@@ -162,88 +159,69 @@ window.addEventListener("DOMContentLoaded", () => {
       this.price = price;
       this.classes = classes;
       this.parent = document.querySelector(parentSelector);
-      this.transfer = 11350;
+      this.transfer = 11000;
       this.chageToUZS();
     }
+
     chageToUZS() {
       this.price = this.price * this.transfer;
     }
+
     render() {
       const element = document.createElement("div");
 
-      if (this.classes.length == 0) {
+      if (this.classes.length === 0) {
         this.element = "menu__item";
         element.classList.add(this.element);
       } else {
         this.classes.forEach((classname) => element.classList.add(classname));
       }
+
       element.innerHTML = `
-      <img src=${this.src} alt=${this.alt} />
-      <h3 class="menu__item-subtitle">${this.title}</h3>
-      <div class="menu__item-descr">
-        ${this.descr}
-      </div>
-      <div class="menu__item-divider"></div>
-      <div class="menu__item-price">
-        <div class="menu__item-cost">Price:</div>
-        <div class="mrnu__item-total"><span>${this.price}</span>uzs/month</div>
-      </div>
+        <img src=${this.src} alt=${this.alt} />
+        <h3 class="menu__item-subtitle">${this.title}</h3>
+        <div class="menu__item-descr">${this.descr}</div>
+        <div class="menu__item-divider"></div>
+        <div class="menu__item-price">
+          <div class="menu__item-cost">Price:</div>
+          <div class="menu__item-total"><span>${this.price}</span> uzs/month</div>
+        </div>
       `;
 
       this.parent.append(element);
     }
   }
+
   new MenuCard(
-    "../img/tabs/1.png",
-    "useual",
+    "img/tabs/1.png",
+    "usual",
     'Plan "Usual"',
-    `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis
-  hic rem minus ex rerum eius voluptate optio debitis dicta numquam.
-  Ipsa perferendis veniam perspiciatis totam expedita officiis iure
-  veritatis voluptatum.`,
+    "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit nesciunt facere, sequi exercitationem praesentium ab cupiditatebeatae debitis perspiciatis itaque quaerat id modi corporis delectus ratione nobis harum voluptatum in.",
     10,
     ".menu .container"
   ).render();
 
   new MenuCard(
-    "../img/tabs/2.jpg",
+    "img/tabs/2.jpg",
     "plan",
-    'Plan "Premium"',
-    `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis
-  hic rem minus ex rerum eius voluptate optio debitis dicta numquam.
-  Ipsa perferendis veniam perspiciatis totam expedita officiis iure
-  veritatis voluptatum.`,
+    "Plan “Premium”",
+    "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit nesciunt facere, sequi exercitationem praesentium ab cupiditatebeatae debitis perspiciatis itaque quaerat id modi corporis delectus ratione nobis harum voluptatum in.",
     20,
-    ".menu .container"
+    ".menu .container",
+    "menu__item"
   ).render();
 
   new MenuCard(
-    "../img/tabs/3.jpg",
+    "img/tabs/3.jpg",
     "vip",
     "Plan VIP",
-    `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis
-  hic rem minus ex rerum eius voluptate optio debitis dicta numquam.
-  Ipsa perferendis veniam perspiciatis totam expedita officiis iure
-  veritatis voluptatum.`,
+    "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit nesciunt facere, sequi exercitationem praesentium ab cupiditatebeatae debitis perspiciatis itaque quaerat id modi corporis delectus ratione nobis harum voluptatum in.",
     30,
-    ".menu .container"
+    ".menu .container",
+    "menu__item"
   ).render();
 
-  // Rest oprater
-
-  // function logger(a, b, ...rest) {
-  //   console.log(a, b, rest);
-  // }
-
-  // logger(1, 2, 3, 4, 5, 6, 7, 8, 9);
-
-  // function calc(number, def) {
-  //   console.log(number + def);
-  // }
-  // calc(1, 2);
-
   // Form
-
   const forms = document.querySelectorAll("form");
 
   forms.forEach((form) => {
@@ -251,46 +229,75 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 
   const msg = {
-    loading: "Loading...",
-    success: "Thank's for submitting our form ",
+    loading: "img/spinner.svg",
+    success: "Thank's for submitting our form",
     failure: "Something went wrong",
   };
-
-  console.log("hello");
 
   function postData(form) {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
 
-      const statusMessage = document.createElement("div");
-      statusMessage.textContent = msg.loading;
-      form.append(statusMessage);
+      const statusMessage = document.createElement("img");
+      statusMessage.src = msg.loading;
+      statusMessage.style.cssText = `
+        display: block;
+        margin: 0 auto;
+      `;
+      form.insertAdjacentElement("afterend", statusMessage);
 
       const request = new XMLHttpRequest();
-      request.open("POST", "../server.php");
+      request.open("POST", "server.php");
 
       request.setRequestHeader("Content-Type", "application/json");
+
       const obj = {};
       const formData = new FormData(form);
+
       formData.forEach((val, key) => {
         obj[key] = val;
       });
 
       const json = JSON.stringify(obj);
+
       request.send(json);
-      // request.send(formData);
+
       request.addEventListener("load", () => {
-        if (request.status == 200) {
+        if (request.status === 200) {
           console.log(request.response);
-          statusMessage.textContent = msg.success;
+          showThanksModal(msg.success);
           form.reset();
           setTimeout(() => {
             statusMessage.remove();
           }, 2000);
         } else {
-          statusMessage.textContent = msg.failure;
+          showThanksModal(msg.failure);
         }
       });
     });
+  }
+
+  function showThanksModal(message) {
+    const prevModalDialog = document.querySelector(".modal__dialog");
+
+    prevModalDialog.classList.add("hide");
+    openModal();
+
+    const thanksModal = document.createElement("div");
+    thanksModal.classList.add("modal__dialog");
+    thanksModal.innerHTML = `
+      <div class="modal__content">
+        <div data-close class="modal__close">&times;</div>
+        <div class="modal__title">${message}</div>
+      </div>
+    `;
+
+    document.querySelector(".modal").append(thanksModal);
+    setTimeout(() => {
+      thanksModal.remove();
+      prevModalDialog.classList.add("show");
+      prevModalDialog.classList.remove("hide");
+      closeModal();
+    }, 4000);
   }
 });
