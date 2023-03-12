@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 "use strict";
 
 // const isFrendCome = true;
@@ -36,31 +35,30 @@
 
 // promise
 
-console.log("Request data...");
-const req = new Promise((resolve) => {
-  setTimeout(() => {
-    const product = {
-      name: "car",
-      color: "black",
-    };
-    console.log("Processing data...");
-    resolve(product);
-  }, 2000);
-});
-req
-  .then((data) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        data.status = "ordered";
-        console.log("Get data ...");
-        reject();
-      }, 2000);
-    });
-  })
-  .then((result) => console.log(result))
-  .catch(() => console.log("Something went wrong"))
-  .finally(() => console.log("Fetching end"));
-=======
+// console.log("Request data...");
+// const req = new Promise((resolve) => {
+//   setTimeout(() => {
+//     const product = {
+//       name: "car",
+//       color: "black",
+//     };
+//     console.log("Processing data...");
+//     resolve(product);
+//   }, 2000);
+// });
+// req
+//   .then((data) => {
+//     return new Promise((resolve, reject) => {
+//       setTimeout(() => {
+//         data.status = "ordered";
+//         console.log("Get data ...");
+//         reject();
+//       }, 2000);
+//     });
+//   })
+//   .then((result) => console.log(result))
+//   .catch(() => console.log("Something went wrong"))
+//   .finally(() => console.log("Fetching end"));
 window.addEventListener("DOMContentLoaded", () => {
   const tabsParent = document.querySelector(".tabheader__items"),
     tabs = document.querySelectorAll(".tabheader__item"),
@@ -308,35 +306,52 @@ window.addEventListener("DOMContentLoaded", () => {
         margin: 0 auto;
       `;
       form.insertAdjacentElement("afterend", statusMessage);
-
-      const request = new XMLHttpRequest();
-      request.open("POST", "server.php");
-
-      request.setRequestHeader("Content-Type", "application/json");
-
-      const obj = {};
       const formData = new FormData(form);
-
+      //   const request = new XMLHttpRequest();
+      //   request.open("POST", "server.php");
+      //   request.setRequestHeader("Content-Type", "application/json");
+      const obj = {};
       formData.forEach((val, key) => {
         obj[key] = val;
       });
 
-      const json = JSON.stringify(obj);
+      //   const json = JSON.stringify(obj);
 
-      request.send(json);
-
-      request.addEventListener("load", () => {
-        if (request.status === 200) {
-          console.log(request.response);
+      fetch("server.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
+      })
+        .then((data) => data.text())
+        .then((data) => {
+          console.log(data);
           showThanksModal(msg.success);
-          form.reset();
-          setTimeout(() => {
-            statusMessage.remove();
-          }, 2000);
-        } else {
+
+          statusMessage.remove();
+        })
+        .catch(() => {
           showThanksModal(msg.failure);
-        }
-      });
+        })
+        .finally(() => {
+          form.reset();
+        });
+
+      //   request.send(json);
+
+      //   request.addEventListener("load", () => {
+      //     if (request.status === 200) {
+      //       console.log(request.response);
+      //       showThanksModal(msg.success);
+      //       form.reset();
+      //       setTimeout(() => {
+      //         statusMessage.remove();
+      //       }, 2000);
+      //     } else {
+      //       showThanksModal(msg.failure);
+      //     }
+      //   });
     });
   }
 
@@ -363,5 +378,11 @@ window.addEventListener("DOMContentLoaded", () => {
       closeModal();
     }, 4000);
   }
+
+  // API === Application Programming interface
+  // DOM API
+  // google map API
+  // google place API
+
+  // Fatch API
 });
->>>>>>> 52a0cdf30a4dbfed1421a296b667ae758eb57411
