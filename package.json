@@ -1,0 +1,19 @@
+{
+  "name": "javascript-lessons",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Akmaljon Yusupov",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "bootstrap": "^5.2.3",
+    "jquery": "^3.6.4"
+  },
+  "devDependencies": {
+    "cors": "^2.8.5"
+  }
+}
