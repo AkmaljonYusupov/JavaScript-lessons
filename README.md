@@ -2,10 +2,10 @@
 
 Mohirdev Academiy darsliklari: Full Stack Javascript (MERN) 1-MODUL
 
-# MAP method - Bizga yangi massiv qaytaradi eski massivni qiymatini o`zgartirib
+## MAP method - Bizga yangi massiv qaytaradi eski massivni qiymatini o`zgartirib
 
-# FILTER method - yangi massiv qaytaradi filter qilib
+## FILTER method - yangi massiv qaytaradi filter qilib
 
-# SOME / EVERY method - boolean qiymat qaytaradi
+## SOME / EVERY method - boolean qiymat qaytaradi
 
-# REDUCE method - bitta qandaydir qiymat qaytaradi
+## REDUCE method - bitta qandaydir qiymat qaytaradi
