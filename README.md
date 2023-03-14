@@ -1,3 +1,7 @@
-# JavaScript-lessons START
-Mohirdev Academiy darsliklari: Full Stack Javascript (MERN) 1-MODUL <hr>
-<img src="https://itproger.com/paid_courses/img/javascript_anim.gif" alt="JavaScript">
+# JavaScript-lessons 63-dars. Json-server
+
+Mohirdev Academiy darsliklari: Full Stack Javascript (MERN) 1-MODUL
+
+#json serverni windowda ishga tushirish
+
+##npx json-server db.json
