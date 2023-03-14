@@ -379,10 +379,7 @@ window.addEventListener("DOMContentLoaded", () => {
     }, 4000);
   }
 
-  // API === Application Programming interface
-  // DOM API
-  // google map API
-  // google place API
-
-  // Fatch API
+  fetch("http://localhost:3000/menu")
+    .then((data) => data.json())
+    .then((res) => console.log(res));
 });
